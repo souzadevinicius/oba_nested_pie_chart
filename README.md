@@ -12,7 +12,6 @@ library(dplyr)
 library(data.table)
 library(ggrepel)
 
-
 df <- fread('./oba.csv')
 ```
 
@@ -41,4 +40,4 @@ PieDonut(
 )
 ```
 
-![](oba_chart_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->

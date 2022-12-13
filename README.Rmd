@@ -1,11 +1,15 @@
-OBA Nested Pie Chart
-================
+---
+title: "OBA Nested Pie Chart"
+output: github_document
+---
 
-This is a nested by chart OBA. First I grouped the data frame using
-**grouping_label** and **attribute_label**. Then, I summed the **count**
-values by group.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
 
-``` r
+This is a nested by chart OBA. First I grouped the data frame using **grouping_label** and **attribute_label**. Then, I summed the **count** values by group.
+
+```{r}
 library(ggplot2)
 source('./piedonut.r')
 library(dplyr)
@@ -13,13 +17,14 @@ library(data.table)
 library(ggrepel)
 
 df <- fread('./oba.csv')
+
 ```
 
 ------------------------------------------------------------------------
 
 ## Nested pie chart
 
-``` r
+```{r, fig.width=8, fig.height=8}
 df_gb <- df %>%
   dplyr::group_by(grouping_label, attribute_label) %>%
   dplyr::summarise(n = sum(count)) %>%
@@ -39,5 +44,3 @@ PieDonut(
   
 )
 ```
-
-![](oba_chart_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
