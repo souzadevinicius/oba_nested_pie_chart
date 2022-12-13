@@ -5,69 +5,40 @@ This is a nested by chart OBA. First I grouped the data frame using
 **grouping_label** and **attribute_label**. Then, I summed the **count**
 values by group.
 
-## TOP 10 Values by Count
-
 ``` r
 library(ggplot2)
-library(webr)
+source('./piedonut.r')
 library(dplyr)
 library(data.table)
+library(ggrepel)
 
 
 df <- fread('./oba.csv')
+```
 
+------------------------------------------------------------------------
+
+## Nested pie chart
+
+``` r
 df_gb <- df %>%
   dplyr::group_by(grouping_label, attribute_label) %>%
   dplyr::summarise(n = sum(count)) %>%
-  dplyr::arrange(desc(n)) %>%
-  head(10)
-```
+  dplyr::arrange(desc(n))
 
-I had to took only the first 10 values (sorted by sum count in
-descendant way). Otherwise the plot will be very *“poluted”*.
-
-``` r
 PieDonut(
   df_gb,
-  aes(attribute_label, grouping_label, count = n),
+  aes(grouping_label, attribute_label, count = n),
   addDonutLabel = F,
-  r0 = 0.45,
-  r1 = 0.9,
   labelposition=0,
-  donutLabelSize=2.5,
-  pieLabelSize=2.5,
-  addPieLabel = F,
-  showPieName = F
+  donutLabelSize=3.5,
+  pieLabelSize=3.5,
+  showDonutName = F,
+  pieName=paste("Total", nrow(df)),
+  ratioByGroup=T,
+  r0=0.3,
   
 )
 ```
 
 ![](oba_chart_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
-
-------------------------------------------------------------------------
-
-## TOP 20 Values by Count
-
-``` r
-df_gb <- df %>%
-  dplyr::group_by(grouping_label, attribute_label) %>%
-  dplyr::summarise(n = sum(count)) %>%
-  dplyr::arrange(desc(n)) %>%
-  head(20)
-
-PieDonut(
-  df_gb,
-  aes(attribute_label, grouping_label, count = n),
-  addDonutLabel = F,
-  r0 = 0.45,
-  r1 = 0.9,
-  labelposition=0,
-  donutLabelSize=2.5,
-  pieLabelSize=2.5,
-  addPieLabel = F,
-  showPieName = F
-  
-)
-```
-
-![](oba_chart_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
