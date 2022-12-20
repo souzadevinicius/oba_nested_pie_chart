@@ -23,7 +23,8 @@ df <- fread('./oba.csv')
 df_gb <- df %>%
   dplyr::group_by(grouping_label, attribute_label) %>%
   dplyr::summarise(n = sum(count)) %>%
-  dplyr::arrange(desc(n))
+  dplyr::arrange(desc(n)) %>%
+  dplyr::filter(grouping_label != 'appetite')
 
 PieDonut(
   df_gb,
@@ -33,7 +34,7 @@ PieDonut(
   donutLabelSize=3.5,
   pieLabelSize=3.5,
   showDonutName = F,
-  pieName=paste("Total", nrow(df)),
+  pieName=paste("Total: 7807"),
   ratioByGroup=T,
   r0=0.3,
   
